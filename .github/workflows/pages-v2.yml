@@ -34,6 +34,16 @@ jobs:
           git clone --depth=1 https://github.com/infokusima/kusima-web.git _site
           rm -rf _site/.git _site/.github
 
+      - name: Odstran stare docasne oznacenia z V2
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('_site/design-extra-v2.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace("if(daily[0]) daily[0].innerHTML='<span class=\"preparing-badge\">Pripravujeme</span> &nbsp; Meniny';", "if(daily[0]) daily[0].textContent='Meniny má';")
+          s=s.replace("if(daily[1]) daily[1].innerHTML='<a href=\"https://www.svit.sk/mesto/aktuality/\" target=\"_blank\" rel=\"noopener\">Čerstvé správy zo Svitu ↗</a> &nbsp; <span class=\"preparing-badge\">RSS pripravujeme</span>';", "if(daily[1]) daily[1].innerHTML='<a href=\"https://www.svit.sk/mesto/aktuality/\" target=\"_blank\" rel=\"noopener\">Čerstvé správy zo Svitu ↗</a>';" )
+          p.write_text(s,encoding='utf-8')
+
       - name: Priprav cerstve dynamicke data
         shell: python
         run: |
