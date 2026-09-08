@@ -95,7 +95,7 @@ contexts = {
     "billcomplaint": ("[['annual','Praktický výklad ročného vyúčtovania']]", ()),
     "votecomplaint": ("[['law182','Zákon 182/1993 · hlasovanie vlastníkov']]", ()),
     "repairproposal": ("[['sfrb','ŠFRB · možnosti obnovy bytového domu']]", ()),
-    "energyproposal": ("[['sieia','SIEA · odborný sprievodca obnovou'],['sfrb','ŠFRB · financovanie obnovy']]", ()),
+    "energyproposal": ("[['siea','SIEA · odborný sprievodca obnovou'],['sfrb','ŠFRB · financovanie obnovy']]", ()),
     "ruleproposal": ("[['law182','Zákon 182/1993 · správa a rozhodovanie domu']]", ()),
 }
 for node_id, (context_js, extra_sources) in contexts.items():
