@@ -23,10 +23,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout V2
         uses: actions/checkout@v4
 
-      - name: Priprav dynamicke data
+      - name: Priprav vizualny parity baseline zo stabilneho webu
+        shell: bash
+        run: |
+          set -e
+          rm -rf _site
+          git clone --depth=1 https://github.com/infokusima/kusima-web.git _site
+          rm -rf _site/.git _site/.github
+
+      - name: Priprav cerstve dynamicke data
         shell: python
         run: |
           import json, os, urllib.request, xml.etree.ElementTree as ET
@@ -34,83 +42,85 @@ jobs:
           from urllib.parse import quote_plus
           from zoneinfo import ZoneInfo
 
-          os.makedirs('data', exist_ok=True)
-
+          os.makedirs('_site/data', exist_ok=True)
           def save(name, data):
-              with open('data/'+name, 'w', encoding='utf-8') as f:
+              with open('_site/data/'+name, 'w', encoding='utf-8') as f:
                   json.dump(data, f, ensure_ascii=False, indent=2)
 
-          now = datetime.now(ZoneInfo('Europe/Bratislava'))
-          nameday = {'date': now.strftime('%Y-%m-%d'), 'name': ''}
+          now=datetime.now(ZoneInfo('Europe/Bratislava'))
+          nameday={'date':now.strftime('%Y-%m-%d'),'name':''}
           try:
-              source='https://raw.githubusercontent.com/zoltancsontos/slovak-name-days-json/master/slovak-nameday-list-shorter.json'
-              req=urllib.request.Request(source,headers={'User-Agent':'KUSIMA-web-v2/1.0'})
+              src='https://raw.githubusercontent.com/zoltancsontos/slovak-name-days-json/master/slovak-nameday-list-shorter.json'
+              req=urllib.request.Request(src,headers={'User-Agent':'KUSIMA-web-v2/1.0'})
               data=json.loads(urllib.request.urlopen(req,timeout=20).read().decode('utf-8'))
               nameday['name']=data[str(now.month-1)][str(now.day)]
           except Exception as exc:
               nameday['error']=str(exc)
-          save('nameday.json', nameday)
+          save('nameday.json',nameday)
 
           lat,lon=49.05824,20.19653
-          weather_url=('https://api.open-meteo.com/v1/forecast'
-              f'?latitude={lat}&longitude={lon}&current=temperature_2m,weather_code,is_day&timezone=Europe%2FBratislava')
-          descriptions={0:'Jasno',1:'Prevažne jasno',2:'Polooblačno',3:'Zamračené',45:'Hmla',48:'Mrznúca hmla',
-            51:'Slabé mrholenie',53:'Mrholenie',55:'Silné mrholenie',61:'Slabý dážď',63:'Dážď',65:'Silný dážď',
-            71:'Slabé sneženie',73:'Sneženie',75:'Silné sneženie',80:'Slabé prehánky',81:'Prehánky',82:'Silné prehánky',95:'Búrka'}
+          url=('https://api.open-meteo.com/v1/forecast'
+               f'?latitude={lat}&longitude={lon}&current=temperature_2m,weather_code,is_day&timezone=Europe%2FBratislava')
+          descriptions={0:'Jasno',1:'Prevažne jasno',2:'Polooblačno',3:'Zamračené',45:'Hmla',48:'Mrznúca hmla',51:'Slabé mrholenie',53:'Mrholenie',55:'Silné mrholenie',56:'Mrznúce mrholenie',57:'Silné mrznúce mrholenie',61:'Slabý dážď',63:'Dážď',65:'Silný dážď',66:'Mrznúci dážď',67:'Silný mrznúci dážď',71:'Slabé sneženie',73:'Sneženie',75:'Silné sneženie',77:'Snehové zrná',80:'Slabé prehánky',81:'Prehánky',82:'Silné prehánky',85:'Slabé snehové prehánky',86:'Silné snehové prehánky',95:'Búrka',96:'Búrka s krúpami',99:'Silná búrka s krúpami'}
           weather={'status':'error'}
           try:
-              req=urllib.request.Request(weather_url,headers={'User-Agent':'KUSIMA-web-v2/1.0'})
+              req=urllib.request.Request(url,headers={'User-Agent':'KUSIMA-web-v2/1.0'})
               data=json.loads(urllib.request.urlopen(req,timeout=20).read().decode('utf-8'))
               cur=data.get('current',{})
               code=int(cur.get('weather_code',-1))
               weather={'status':'ok','temperature':float(cur['temperature_2m']),'weather_code':code,'is_day':int(cur.get('is_day',1)),'description':descriptions.get(code,'Aktuálne počasie'),'time':cur.get('time','')}
           except Exception as exc:
               weather['error']=str(exc)
-          save('weather-svit.json', weather)
+          save('weather-svit.json',weather)
 
           def rss(url, filter_fn=None):
               out={'source':url,'updated_at':datetime.now(timezone.utc).isoformat(),'items':[]}
               try:
                   req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 KUSIMA-web-v2/1.0'})
                   root=ET.fromstring(urllib.request.urlopen(req,timeout=25).read())
-                  items=[]
+                  rows=[]
                   for item in root.findall('.//item')[:30]:
                       def txt(name):
                           el=item.find(name)
                           return (el.text or '').strip() if el is not None else ''
                       row={'title':txt('title'),'link':txt('link'),'pubDate':txt('pubDate'),'description':txt('description')}
                       if row['title'] and (filter_fn is None or filter_fn(row)):
-                          items.append(row)
-                  out['items']=items[:6]
-                  out['status']='ok' if items else 'error'
+                          rows.append(row)
+                  out['items']=rows[:6]
+                  out['status']='ok' if rows else 'error'
               except Exception as exc:
                   out['status']='error'; out['error']=str(exc)
               return out
 
-          svit=rss('https://www.svit.sk/index.php?rss=200', lambda x:'/mesto/aktuality/' in x['link'] and 'file_storage' not in x['link'])
-          save('svit-news.json', svit)
+          save('svit-news.json',rss('https://www.svit.sk/index.php?rss=200',lambda x:'/mesto/aktuality/' in x['link'] and 'file_storage' not in x['link']))
           tatry_url=f"https://news.google.com/rss/search?q={quote_plus('Vysoké Tatry')}&hl=sk&gl=SK&ceid=SK:sk"
-          tatry=rss(tatry_url, lambda x:any(k in x['title'].lower() for k in ['tat','smokovec','lomnica']))
-          save('tatry-news.json', tatry)
+          save('tatry-news.json',rss(tatry_url,lambda x:any(k in x['title'].lower() for k in ['tat','smokovec','lomnica'])))
 
-      - name: Zostav publikovatelny web
-        shell: bash
+      - name: Zostav rovnaky CSS ako stabilny web
+        shell: python
         run: |
-          set -e
-          mkdir -p _site
-          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
-          cat theme.css site-core.css > _site/site.css
-          rm -f _site/theme.css _site/site-core.css
-          python - <<'PY'
           from pathlib import Path
-          import os, re
+          css_files=['styles.css','overrides.css','rooms-v2.css','layout-v1.css','mood-v1.css','mood-v2.css','preconsolidation-fixes.css','content-v2.css','source-buttons-v1.css','components-runtime.css','home-current-v1.css']
+          root=Path('_site')
+          chunks=['/* KUSIMA V2 visual parity baseline */\n']
+          for filename in css_files:
+              p=root/filename
+              chunks.append(f'\n/* ===== {filename} ===== */\n')
+              chunks.append(p.read_text(encoding='utf-8'))
+              chunks.append('\n')
+          (root/'site.css').write_text(''.join(chunks),encoding='utf-8')
+
+      - name: Cache busting bez zmeny vzhladu
+        shell: python
+        run: |
+          from pathlib import Path
+          import os,re
           p=Path('_site/index.html')
           s=p.read_text(encoding='utf-8')
           sha=os.environ.get('GITHUB_SHA','dev')[:12]
-          s=s.replace('href="site.css"',f'href="site.css?v={sha}"')
-          s=re.sub(r'src="(content|app|dynamic|articles|forms)\.js"',lambda m:f'src="{m.group(1)}.js?v={sha}"',s)
+          s=re.sub(r'href="site\.css(?:\?v=[^"]*)?"',f'href="site.css?v={sha}"',s)
+          s=re.sub(r'src="((?!https?:|//)[^"]+\.js)(?:\?v=[^"]*)?"',lambda m:f'src="{m.group(1)}?v={sha}"',s)
           p.write_text(s,encoding='utf-8')
-          PY
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
