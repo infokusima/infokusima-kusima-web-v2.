@@ -1,8 +1,8 @@
 .context-sources{
   display:flex;
-  align-items:baseline;
+  align-items:center;
   flex-wrap:wrap;
-  gap:7px 12px;
+  gap:8px 10px;
   margin:10px 0 18px;
   font-size:13px;
   line-height:1.45;
@@ -16,21 +16,26 @@
   display:inline-flex;
   align-items:center;
   gap:5px;
-  color:#2d6559;
+  color:#7b2f2f;
   font-weight:750;
   text-decoration:none;
-  border-bottom:1px solid rgba(45,101,89,.28);
-  padding-bottom:1px;
-  transition:border-color .16s ease,color .16s ease;
+  background:rgba(183,56,56,.14);
+  border:1px solid rgba(154,45,45,.28);
+  border-radius:999px;
+  padding:5px 9px;
+  box-shadow:0 1px 0 rgba(255,255,255,.55) inset;
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease,transform .16s ease;
 }
 .context-source:hover,
 .context-source:focus-visible{
-  color:#173f36;
-  border-bottom-color:#173f36;
+  color:#642323;
+  background:rgba(183,56,56,.22);
+  border-color:rgba(132,35,35,.42);
+  transform:translateY(-1px);
 }
 .context-source span{
   font-size:.9em;
-  opacity:.72;
+  opacity:.74;
 }
 @media (max-width:680px){
   .context-sources{
@@ -39,9 +44,9 @@
   }
   .context-sources-label{
     display:block;
-    margin-bottom:5px;
+    margin-bottom:6px;
   }
   .context-source{
-    margin:0 12px 5px 0;
+    margin:0 8px 6px 0;
   }
 }
