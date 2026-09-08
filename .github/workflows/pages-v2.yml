@@ -44,6 +44,13 @@ jobs:
           s=s.replace("if(daily[1]) daily[1].innerHTML='<a href=\"https://www.svit.sk/mesto/aktuality/\" target=\"_blank\" rel=\"noopener\">Čerstvé správy zo Svitu ↗</a> &nbsp; <span class=\"preparing-badge\">RSS pripravujeme</span>';", "if(daily[1]) daily[1].innerHTML='<a href=\"https://www.svit.sk/mesto/aktuality/\" target=\"_blank\" rel=\"noopener\">Čerstvé správy zo Svitu ↗</a>';" )
           p.write_text(s,encoding='utf-8')
 
+      - name: Rozsir kontextove overene zdroje
+        shell: bash
+        run: |
+          set -e
+          python tools/enhance_context_sources.py _site
+          cp v2-context-links.css _site/v2-context-links.css
+
       - name: Priprav cerstve dynamicke data
         shell: python
         run: |
@@ -110,7 +117,7 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
-          css_files=['styles.css','overrides.css','rooms-v2.css','layout-v1.css','mood-v1.css','mood-v2.css','preconsolidation-fixes.css','content-v2.css','source-buttons-v1.css','components-runtime.css','home-current-v1.css']
+          css_files=['styles.css','overrides.css','rooms-v2.css','layout-v1.css','mood-v1.css','mood-v2.css','preconsolidation-fixes.css','content-v2.css','source-buttons-v1.css','components-runtime.css','home-current-v1.css','v2-context-links.css']
           root=Path('_site')
           chunks=['/* KUSIMA V2 visual parity baseline */\n']
           for filename in css_files:
