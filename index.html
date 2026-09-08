@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="KUSIMA – správa bytových domov v Poprade, Svite a okolí">
+  <title>KUSIMA – správa bytových domov</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+<section id="home" class="view active room-shell" data-room="hall">
+  <header class="topbar shell">
+    <a href="#" class="logo" data-home><img src="assets/logo-kusima.svg" alt="KUSIMA"><span class="logo-name">KUSIMA</span></a>
+    <span class="small">Správa bytových domov · Poprad · Svit · okolie</span>
+  </header>
+  <main class="shell">
+    <div class="visual-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">SPRÁVA, KTORÁ KOMUNIKUJE</p>
+        <h1>Vitajte na stránke svojho správcu.</h1>
+        <p class="lead">Pokračujte podľa ponuky:</p>
+        <div class="routes">
+          <button class="route" data-open="dialogView"><span class="n">01</span><strong>KLIENT – vlastník bytu</strong><span><b>Naša kuchyňa</b> · poďme spolu nájsť riešenie.</span></button>
+          <button class="route" data-open="supplierView"><span class="n">02</span><strong>DODÁVATEĽ</strong><span><b>Naša dielňa</b> · ponuky, spolupráca a fakturácia.</span></button>
+          <button class="route" data-open="prospectView"><span class="n">03</span><strong>ZÁUJEMCA O SPRÁVU</strong><span><b>Naša obývačka</b> · pre domy, ktoré hľadajú správcu.</span></button>
+          <button class="route" data-open="exploreView"><span class="n">04</span><strong>TIPY &amp; INŠPIRÁCIA</strong><span><b>Naša terasa / balkón</b> · články, trendy a dobré odkazy.</span></button>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-photo">
+          <img id="heroPhoto" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Svit,%20pohled%20na%20Tatry.jpg?width=1600" alt="Svit · Tatry na dosah">
+          <a id="heroCredit" class="hero-credit" target="_blank" rel="noopener" href="https://commons.wikimedia.org/wiki/File:Svit,_pohled_na_Tatry.jpg">Svit · Tatry na dosah · Wikimedia Commons ↗</a>
+          <div class="hero-glass">
+            <div class="hero-glass-top"><div><div class="hero-date" id="date">—</div></div><strong class="hero-time" id="clock">—</strong></div>
+            <div class="hero-glass-line"></div>
+            <div class="hero-glass-small"><span class="nameday-label">Meniny má</span><strong class="nameday-name" id="namedayName">—</strong><div id="kusimaWeather" class="hero-weather" title="Svit · počasie"><span aria-hidden="true">🌡️</span><span class="hero-weather-temp">— °C</span></div></div>
+          </div>
+        </div>
+        <div class="news-card"><span class="city-dot">S</span><div class="city-copy"><span class="city-label">Mesto Svit · čerstvá správa</span><a id="svitNewsLink" href="https://www.svit.sk/mesto/aktuality/" target="_blank" rel="noopener">Aktuality Mesta Svit ↗</a></div></div>
+        <div class="news-card"><span class="city-dot">T</span><div class="city-copy"><span class="city-label">Región Vysoké Tatry · čerstvá správa</span><a id="tatryNewsLink" href="https://visittatry.sk/" target="_blank" rel="noopener">Novinky z Vysokých Tatier ↗</a></div></div>
+      </div>
+    </div>
+    <div class="ticker"><div class="track"><span>KUSIMA správca bytových domov v Poprade, vo Svite a okolí, KUSIMA Váš správca.</span><span>KUSIMA správca bytových domov v Poprade, vo Svite a okolí, KUSIMA Váš správca.</span></div></div>
+    <nav class="quicklinks" aria-label="Užitočné odkazy"><a target="_blank" rel="noopener" href="https://www.svit.sk/mesto/aktuality/">Svit ↗</a><a target="_blank" rel="noopener" href="https://spis.korzar.sme.sk/">Korzár ↗</a><a target="_blank" rel="noopener" href="https://www.panorama.sk/sk/online-kamery">Webkamery ↗</a><a target="_blank" rel="noopener" href="https://www.shmu.sk/sk/?page=1">Počasie ↗</a><a target="_blank" rel="noopener" href="https://infokusima.github.io/djchoice/">Rádiá ↗</a></nav>
+  </main>
+</section>
+
+<section id="dialogView" class="view room-shell" data-room="kitchen">
+  <header class="topbar shell"><a href="#" class="logo" data-home><img src="assets/logo-kusima.svg" alt="KUSIMA"><span class="logo-name">KUSIMA</span></a><span class="small">Klient <em id="roomAssociation">· naša kuchyňa</em></span></header>
+  <main class="shell dialog"><div id="crumbs" class="crumbs"></div><button class="back" id="clientBack">← Späť</button><div id="clientContent"></div></main>
+</section>
+
+<section id="supplierView" class="view room-shell" data-room="workshop">
+  <header class="topbar shell"><a href="#" class="logo" data-home><img src="assets/logo-kusima.svg" alt="KUSIMA"><span class="logo-name">KUSIMA</span></a><span class="small">Dodávateľ <em>· naša dielňa</em></span></header>
+  <main class="shell"><button class="back" data-home>← Späť na úvod</button>
+    <div class="supplier-head"><p class="eyebrow">DODÁVATEĽ · NAŠA DIELŇA</p><h2>Dobrá ponuka sa dá porovnať.</h2><p>Hľadáme spoľahlivých ľudí a firmy, ktoré vedia jasne povedať <strong>čo urobia, za koľko, dokedy a s akou zárukou</strong>. Najnižšia cena sama osebe ešte nemusí byť najvýhodnejšia ponuka.</p></div>
+    <div class="supplier-grid">
+      <section class="supplier-card"><div class="mini-icon">§</div><h3>Ako postupujeme pri výbere</h3><p>Pri správe domu hospodárime s peniazmi vlastníkov. Zákon nám preto prikazuje postupovať s odbornou starostlivosťou a dojednať čo najvýhodnejšie podmienky v ich prospech.</p><div class="supplier-steps"><div><b>01</b><span><strong>Rovnaké zadanie.</strong> Snažíme sa, aby uchádzači nacenili porovnateľný rozsah prác.</span></div><div><b>02</b><span><strong>Porovnáme celok.</strong> Cena, rozsah, materiál, doprava a mechanizmy, termín, záruka, platobné podmienky, referencie a výluky.</span></div><div><b>03</b><span><strong>Nejasnosti si vyjasníme.</strong> Ak ponuka skrýva položku alebo nie je porovnateľná, vyžiadame spresnenie.</span></div><div><b>04</b><span><strong>Vlastníci rozhodnú.</strong> Ak výber patrí vlastníkom, správca sa ich rozhodnutím riadi.</span></div><div><b>05</b><span><strong>Transparentnosť.</strong> Postup obstarávania a jednotlivé cenové ponuky sprístupňujeme vlastníkom spôsobom podľa zákona.</span></div></div><div class="actions"><a class="btn" target="_blank" rel="noopener" href="https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/1993/182/">Zákon 182/1993 · § 8b ↗</a></div></section>
+      <section class="supplier-card"><div class="mini-icon">✓</div><h3>Čo má obsahovať dobrá ponuka</h3><div class="offer-checks"><span>Presný predmet a rozsah prác</span><span>Cenu a informáciu o DPH</span><span>Materiál a jeho špecifikáciu</span><span>Dopravu, plošinu, lešenie a vedľajšie náklady</span><span>Predpokladaný termín a dĺžku realizácie</span><span>Záruku a reklamačné podmienky</span><span>Platobné podmienky a splatnosť</span><span>Čo v cene <b>nie je</b></span><span>Referencie alebo oprávnenia, ak sú potrebné</span><span>Platnosť cenovej ponuky</span></div><div class="softnote"><b>Malý detail, ktorý šetrí veľa času:</b> ak naceníte alternatívu, oddeľte ju od základnej ponuky. Vlastníci potom presne vedia, za čo hlasujú.</div><div class="actions"><a class="btn primary" href="mailto:info.kusima@gmail.com?subject=%5BPONUKA%5D%20KUSIMA%20-%20predmet%20z%C3%A1kazky">Poslať cenovú ponuku</a></div></section>
+    </div>
+    <section class="invoice-panel"><div class="invoice-title"><div><span class="eyebrow">FAKTURAČNÉ ÚDAJE</span><h3>KUSIMA, s.r.o. SVIT</h3><p>Kliknite na ktorýkoľvek riadok a údaj sa skopíruje.</p></div><button class="btn copy-all" id="copyAllSupplier">Kopírovať všetko</button></div><div class="invoice-grid">
+      <button class="copy-line" data-copy="KUSIMA, s.r.o. SVIT"><span>Obchodné meno</span><strong>KUSIMA, s.r.o. SVIT</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="Rovná 599/17, 058 01 Poprad"><span>Sídlo</span><strong>Rovná 599/17, 058 01 Poprad</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="36450090"><span>IČO</span><strong>36450090</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="2020015833"><span>DIČ</span><strong>2020015833</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="Nie sme platiteľom DPH"><span>IČ DPH</span><strong>nie sme platiteľom DPH</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="SK79 0200 0000 0013 8969 3857"><span>IBAN</span><strong>SK79 0200 0000 0013 8969 3857</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="info.kusima@gmail.com"><span>E-mail</span><strong>info.kusima@gmail.com</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="+421 919 231 998"><span>Telefón</span><strong>+421 919 231 998</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="Mierová 177, 059 21 Svit"><span>Kancelária</span><strong>Mierová 177, 059 21 Svit</strong><i>Kopírovať</i></button>
+      <button class="copy-line" data-copy="Okresný súd Prešov, oddiel Sro, vložka 10657/P"><span>Obchodný register</span><strong>OS Prešov · Sro · 10657/P</strong><i>Kopírovať</i></button>
+    </div></section>
+  </main>
+</section>
+
+<section id="prospectView" class="view room-shell" data-room="living">
+  <header class="topbar shell"><a href="#" class="logo" data-home><img src="assets/logo-kusima.svg" alt="KUSIMA"><span class="logo-name">KUSIMA</span></a><span class="small">Záujemca o správu <em>· naša obývačka</em></span></header>
+  <main class="shell"><button class="back" data-home>← Späť na úvod</button><div class="page-head"><p class="eyebrow">ZÁUJEMCA O SPRÁVU · NAŠA OBÝVAČKA</p><h2>Sadnime si k tomu.</h2><p><strong>Sme malá rodinná správcovská firma.</strong> Dnes spravujeme 15 bytových domov a voľnú kapacitu máme približne na ďalšie 3 až 5. Nechceme rásť za každú cenu. Chceme si zachovať spôsob práce, pri ktorom <strong>vieme, čo robíme – a vieme aj pre koho to robíme.</strong></p></div>
+    <div class="content-grid"><section class="content-card"><div class="mini-icon">☎</div><h3>Osobný kontakt</h3><p>Väčšinu vlastníkov poznáme osobne. Vedia, že keď zavolajú konateľovi, dostanú odpoveď, radu alebo konkrétny ďalší krok.</p></section><section class="content-card"><div class="mini-icon">§</div><h3>Právne a technické zázemie</h3><p>Sledujeme legislatívne zmeny, spolupracujeme so zmluvnou právnou kanceláriou, overenými revíznymi firmami a zmluvnými majstrami pre elektrinu, vodu a kúrenie.</p></section><section class="content-card"><div class="mini-icon">24</div><h3>Keď treba, sme dostupní</h3><p>Pri dôležitom probléme vieme pomôcť aj cez víkend, sviatok či počas dovolenky. Správa domu pre nás nekončí pracovnou dobou.</p></section><section class="content-card"><div class="mini-icon">€</div><h3>Transparentné hospodárenie</h3><p>Nevnucujeme nepotrebné investície. Ponuky porovnávame, vysvetľujeme možnosti a s peniazmi domu hospodárime transparentne.</p></section></div>
+    <div class="softnote"><strong>Každý nový dom je pre nás nový vzťah, nie nové číslo v databáze.</strong> Správu domu nevnímame len ako administratívu, ale aj ako zodpovednosť za miesto, kde ľudia bývajú. <strong>Dušan Javorinský · konateľ</strong></div>
+    <div class="actions"><a class="btn primary" href="mailto:info.kusima@gmail.com?subject=%5BKUSIMA%5D%20Z%C3%A1ujem%20o%20spr%C3%A1vu">Napísať KUSIMA</a></div>
+  </main>
+</section>
+
+<section id="exploreView" class="view room-shell" data-room="terrace">
+  <header class="topbar shell"><a href="#" class="logo" data-home><img src="assets/logo-kusima.svg" alt="KUSIMA"><span class="logo-name">KUSIMA</span></a><span class="small">Tipy &amp; inšpirácia <em>· naša terasa / balkón</em></span></header>
+  <main class="shell"><button class="back" data-home>← Späť na úvod</button><div class="page-head"><p class="eyebrow">TIPY &amp; INŠPIRÁCIA · NAŠA TERASA / BALKÓN</p><h2>Praktické veci pre lepšie bývanie.</h2><p>Praktické a priebežne aktualizované texty pre vlastníkov bytov.</p></div><div id="articleList" class="article-list"></div></main>
+</section>
+
+<div id="articleModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="articleModalTitle"><article class="modal-card"><div class="modal-head"><h2 id="articleModalTitle"></h2><button class="modal-close" data-close-modal aria-label="Zavrieť">×</button></div><div id="articleModalBody" class="article-body"></div></article></div>
+<button class="office-fab" id="officeButton">Kancelária</button>
+<div id="officeModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card"><div class="modal-head"><div><p class="eyebrow">KONTAKT</p><h2>KUSIMA, s.r.o. SVIT</h2></div><button class="modal-close" data-close-office aria-label="Zavrieť">×</button></div><p>Mierová 177, 059 21 Svit<br><a href="tel:+421919231998">+421 919 231 998</a><br><a href="mailto:info.kusima@gmail.com">info.kusima@gmail.com</a></p></div></div>
+
+<script src="content.js"></script>
+<script src="app.js"></script>
+<script src="dynamic.js"></script>
+<script src="articles.js"></script>
+<script src="forms.js"></script>
+</body>
+</html>
