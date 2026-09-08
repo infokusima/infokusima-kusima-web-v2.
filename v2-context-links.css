@@ -71,6 +71,21 @@
   padding:10px 13px;
 }
 
+/* Jeden scrollbar: pri otvorenom modalnom okne sa pozadie nesmie hybat. */
+html:has(.tip-modal.open),
+body:has(.tip-modal.open),
+html:has(.office-modal.open),
+body:has(.office-modal.open){
+  overflow-y:hidden!important;
+}
+.tip-modal,
+.office-modal{
+  overscroll-behavior:contain;
+}
+.office-modal.open{
+  overflow-y:auto;
+}
+
 @media (max-width:680px){
   .context-sources{
     display:block;
