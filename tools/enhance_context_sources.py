@@ -95,7 +95,7 @@ contexts = {
     "billcomplaint": ("[['annual','Praktický výklad ročného vyúčtovania']]", ()),
     "votecomplaint": ("[['law182','Zákon 182/1993 · hlasovanie vlastníkov']]", ()),
     "repairproposal": ("[['sfrb','ŠFRB · možnosti obnovy bytového domu']]", ()),
-    "energyproposal": ("[['siea','SIEA · odborný sprievodca obnovou'],['sfrb','ŠFRB · financovanie obnovy']]", ()),
+    "energyproposal": ("[['sieia','SIEA · odborný sprievodca obnovou'],['sfrb','ŠFRB · financovanie obnovy']]", ()),
     "ruleproposal": ("[['law182','Zákon 182/1993 · správa a rozhodovanie domu']]", ()),
 }
 for node_id, (context_js, extra_sources) in contexts.items():
@@ -132,4 +132,28 @@ design = design.replace("  if(typeof sources!=='undefined' && sources.soi) delet
 design = design.replace("  if(typeof nodes!=='undefined') Object.values(nodes).forEach(n=>{if(Array.isArray(n.src)) n.src=n.src.filter(x=>x!=='soi');});\n", "")
 design_path.write_text(design, encoding="utf-8")
 
-print("V2 context sources: OK")
+# E-mailove akcne tlacidla otvaraju postu vedla webu, nie namiesto webu.
+mail_rewrites = 0
+for path in (app_path, extra_path):
+    text = path.read_text(encoding="utf-8")
+    before = text
+    text = text.replace(
+        'class="btn primary" href="${mail(',
+        'class="btn primary mail-action" target="_blank" rel="noopener" href="${mail('
+    )
+    text = text.replace(
+        'class=\\"btn primary\\" href=\\"${mail(',
+        'class=\\"btn primary mail-action\\" target=\\"_blank\\" rel=\\"noopener\\" href=\\"${mail('
+    )
+    text = re.sub(
+        r'class="btn primary"\s+href="mailto:',
+        'class="btn primary mail-action" target="_blank" rel="noopener" href="mailto:',
+        text
+    )
+    if text != before:
+        mail_rewrites += 1
+        path.write_text(text, encoding="utf-8")
+if not mail_rewrites:
+    fail("nenasli sa e-mailove akcne tlacidla")
+
+print("V2 context sources and mail actions: OK")
