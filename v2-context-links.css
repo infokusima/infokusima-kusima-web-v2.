@@ -18,11 +18,12 @@
   gap:5px;
   color:#7b2f2f;
   font-weight:750;
+  font-size:14px;
   text-decoration:none;
   background:rgba(183,56,56,.14);
   border:1px solid rgba(154,45,45,.28);
   border-radius:999px;
-  padding:5px 9px;
+  padding:7px 11px;
   box-shadow:0 1px 0 rgba(255,255,255,.55) inset;
   transition:background-color .16s ease,border-color .16s ease,color .16s ease,transform .16s ease;
 }
@@ -37,6 +38,39 @@
   font-size:.9em;
   opacity:.74;
 }
+
+/* Akcne tlacidla: o trochu vacsie a citatelnejsie. */
+.actions .btn{
+  min-height:48px;
+  padding:13px 21px;
+  font-size:15px;
+  line-height:1.2;
+}
+
+/* E-mail je jasny dalsi krok: odlisime ho zelenou, nie hlavickou webu. */
+.actions .btn[href^="mailto:"]{
+  background:rgba(42,126,76,.92);
+  color:#fff;
+  border-color:rgba(28,101,58,.78);
+  box-shadow:0 7px 20px rgba(31,104,60,.16),0 1px 0 rgba(255,255,255,.18) inset;
+}
+.actions .btn[href^="mailto:"]:hover,
+.actions .btn[href^="mailto:"]:focus-visible{
+  background:rgba(31,108,63,.98);
+  border-color:rgba(24,84,49,.9);
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+/* Mensie ovladacie prvky zvacsime iba mierne, aby sme nerozbili layout. */
+.back{
+  font-size:14px;
+}
+.liblinks a{
+  font-size:13px;
+  padding:10px 13px;
+}
+
 @media (max-width:680px){
   .context-sources{
     display:block;
@@ -48,5 +82,10 @@
   }
   .context-source{
     margin:0 8px 6px 0;
+  }
+  .actions .btn{
+    min-height:50px;
+    padding:14px 20px;
+    font-size:15.5px;
   }
 }
