@@ -22,6 +22,19 @@ design = design.replace(
     '<div class="room-caption"><strong>Naša obývačka</strong><small>miesto pre návštevu a prvý rozhovor</small></div>',
     '<div class="room-caption"><strong>Naša obývačka</strong><small>Tu si sadneme a porozprávame sa o vašom dome.</small></div>'
 )
+
+old_heading = '<p class="eyebrow">ZÁUJEMCA O SPRÁVU</p><h2>Sadnime si k tomu.</h2>'
+new_heading = '<p class="eyebrow">ZÁUJEMCA O SPRÁVU</p><h2>Dovoľte nám predstaviť sa.</h2>'
+if old_heading not in design:
+    fail("nenasiel sa povodny nadpis zaujemcu")
+design = design.replace(old_heading, new_heading, 1)
+
+old_intro = '<p class="prospect-intro"><strong>Sme malá rodinná správcovská firma.</strong> Dnes spravujeme 15 bytových domov a voľnú kapacitu máme približne na ďalšie 3 až 5. Nechceme rásť za každú cenu. Chceme si zachovať spôsob práce, pri ktorom <strong>vieme, čo robíme – a vieme aj pre koho to robíme.</strong></p>'
+new_intro = '<p class="prospect-intro"><strong>Sme malá správcovská firma.</strong> Dnes spravujeme 15 bytových domov a voľnú personálnu kapacitu máme na ďalších 3 až 5 domov. Nechceme rásť za každú cenu. Chceme si zachovať náš špecifický spôsob práce, pri ktorom <strong>vieme, čo robíme – a hlavne vieme aj pre koho to robíme. Technické záležitosti rieši priamo konateľ spoločnosti p. Javorinský a bankovú a hospodársku agendu spoločníčka s.r.o., p. Halahijová. Sídlo spoločnosti je v Poprade, ale kanceláriu a archív máme aj vo Svite, sme preto v oboch mestách po ruke.</strong></p>'
+if old_intro not in design:
+    fail("nenasiel sa povodny uvod zaujemcu")
+design = design.replace(old_intro, new_intro, 1)
+
 design_path.write_text(design, encoding="utf-8")
 
 index = index_path.read_text(encoding="utf-8")
