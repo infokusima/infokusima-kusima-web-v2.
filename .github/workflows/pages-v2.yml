@@ -58,6 +58,12 @@ jobs:
           python tools/enhance_room_captions.py _site
           cp v2-room-captions.css _site/v2-room-captions.css
 
+      - name: Oprav vsetky emailove akcie
+        shell: bash
+        run: |
+          set -e
+          python tools/fix_mail_actions.py _site
+
       - name: Priprav cerstve dynamicke data
         shell: python
         run: |
