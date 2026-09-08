@@ -53,6 +53,27 @@
 /* Dodavatel a terasa dostanu rovnake privitanie ako klient a obyvacka. */
 .supplier-head>.room-caption,.explore-head>.room-caption,.prospect-head>.room-caption{margin-bottom:18px}
 
+/* Klient: scrolluje iba dokument. Ziadny vnutorny panel nema vlastnu zvislu listu. */
+#dialogView.active,
+#dialogView.active .dialog,
+#dialogView.active #content,
+#dialogView.active .answer,
+#dialogView.active .options,
+#dialogView.active .library{
+  height:auto!important;
+  max-height:none!important;
+  min-height:0;
+  overflow-y:visible!important;
+}
+#dialogView.active{
+  min-height:100vh!important;
+  overflow-x:hidden!important;
+}
+#dialogView.active .dialog,
+#dialogView.active #content{
+  overflow-x:visible!important;
+}
+
 @media(max-width:720px){
   .room-caption{padding-left:15px;margin-bottom:19px}
   .room-caption strong{font-size:23px}
