@@ -1,9 +1,11 @@
-name: Deploy KUSIMA V2 preview
+name: Deploy KUSIMA V2
 
 on:
   push:
-    branches: ["build-v2"]
+    branches: ["main"]
   workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
 
 permissions:
   contents: read
@@ -11,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages-v2"
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -38,7 +40,6 @@ jobs:
               with open('data/'+name, 'w', encoding='utf-8') as f:
                   json.dump(data, f, ensure_ascii=False, indent=2)
 
-          # Meniny
           now = datetime.now(ZoneInfo('Europe/Bratislava'))
           nameday = {'date': now.strftime('%Y-%m-%d'), 'name': ''}
           try:
@@ -50,7 +51,6 @@ jobs:
               nameday['error']=str(exc)
           save('nameday.json', nameday)
 
-          # Počasie Svit
           lat,lon=49.05824,20.19653
           weather_url=('https://api.open-meteo.com/v1/forecast'
               f'?latitude={lat}&longitude={lon}&current=temperature_2m,weather_code,is_day&timezone=Europe%2FBratislava')
@@ -114,8 +114,6 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload V2
         uses: actions/upload-pages-artifact@v3
